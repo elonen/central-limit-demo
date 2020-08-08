@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Central Limit Theorem Explained</title>
+    <meta name="keywords" content="central limit theorem, interactive, demo, probability, likelihood, normal, gauss, distribution">
+    <meta name="description" content="A friendly explanation of the Central Limit Theorem of probability mathematics and an interactive demonstration.">
+    <meta name="author" content="Jarno Elonen <elonen@iki.fi>">
+    <meta name="language" content="en">
+
+    <meta name="URN" content="URN:NBN:fi-fe20031150">
+    <meta name="DC.Identifier" scheme="URN" content="URN:NBN:fi-fe20031150">
+    <meta name="DC.Creator" content="Jarno Elonen <elonen@iki.fi>">
+    <meta name="DC.Language" scheme="ISO639-1" content="en">
+    <meta name="DC.Date" scheme="ISO8601" content="2001-12-01">
+    <meta name="DC.IsVersionOf" scheme="URN" content="URN:NBN:fi-fe20031149">
+
+    <meta name="OS.title" content="CLT-Applet">
+    <meta name="OS.topic" content="education, mathematics, probability, interactive">
+    <meta name="OS.license" content="Modified BSD">
+    <meta name="OS.description" content="Interactive Central Limit Theorem demo with arbitrary probablity distribution functions.">
+    <meta name="OS.programmingLanguage" content="Rust">
+    <meta name="OS.programmingLanguage" content="Wasm">
+    <meta name="OS.programmingLanguage" content="Javascript">
+  </head>
+
+  <body>
+
+    <h1>Central Limit Theorem Explained</h1>
+    <small>Jarno Elonen &lt;<a href="mailto:elonen@iki.fi">elonen@iki.fi</a>&gt;, 2002-12-01 - 2020-08-08 | URN:NBN:fi-fe20031150</small>
+
+
+    <!-- start app -->
+
+    <script>
+      var button_handler = function() { alert("Visualization module not loaded yet. Try again in a second."); };
+
+      function simulate( min_val, max_val, n_sums, repeats, func_str ) {
+        document.getElementById("simu_sum_of").value = n_sums; 
+        document.getElementById("simu_func").value = func_str; 
+        document.getElementById("simu_min").value = min_val; 
+        document.getElementById("simu_max").value = max_val;
+        document.getElementById("simu_repeat_times").value = repeats;
+        button_handler();
+      }
+    </script>
+
+    <script type="module">
+      // Importing WASM as a JS module requires us to call an init function provided by the default export.
+      // This is planned to be changed in the future.
+      import { default as wasm, simulate_and_redraw } from "./pkg/central_limit_demo.js";
+      window.addEventListener('load', function() {
+        wasm().then((module) => {
+          console.log("WASM module loaded.")
+          button_handler = simulate_and_redraw;
+          button_handler();
+        });
+      });
+    </script>
+
+    <div style="width: 320px; float: right; background: #EEE; padding: 1em; margin: 1em;">
+      <canvas id="canvas" height="320" width="480" style="width: 100%; border: 1px solid black;"></canvas>
+
+      <table>
+        <tr><td>Sum </td><td><input id="simu_sum_of" type="number" min="1" max="1000" step="10" value="10"/> draws from</td></tr>
+        <tr><td>probability function </td><td><input id="simu_func"  value="x"/>, </td></tr>
+        <tr><td>with x min = </td><td><input id="simu_min" type="number" min="-9999" max="9999" step="1" value="0"/></td></tr>
+        <tr><td>with x max = </td><td><input id="simu_max" type="number" min="-9999" max="9999" step="1" value="10"/></td></tr>
+        <tr><td>...and repeat it </td><td><input id="simu_repeat_times" type="number" min="1" max="10000000" step="100" value="1000"/> times.</td></tr>
+      </table>
+
+      <button onclick="button_handler()">Simulate</button>
+
+      <p><small><em>(Demo app requires Wasm and Javascript in browser.)</em></small></p>
+    </div>
+
+    <!-- end app -->
+
+
+    <h2>Dice and coins</h2>
+
+    <p>When you throw a die ten times, you rarely get ones only.
+       The usual result is approximately same amount of all numbers between one and six.
+       Of course, sometimes you may get a five sixes, for example, but certainly not often.
+    <p>If you sum the results of these ten throws, what you get is likely to be closer to 30-40
+       than the maximum, 60 (all sixes) or on the other hand, the minimum, 10 (all ones).
+    <p>The reason for this is that you can get the middle values in many more different
+       ways than the extremes. Example:
+      when throwing two dice: 1+6 = 2+5 = 3+4 = 7, but only 1+1 = 2
+      and only 6+6 = 12.
+    <p>That is: even though you get any of the six numbers equally likely when throwing
+       <b>one</b> die, the extremes are less probable than middle values in <b>sums of several</b> dice. Try:
+    <p>
+    <a href="#demo" onClick="simulate( 1, 6, 1, 900, '1/6' );" >throw one die 900 times</a> | <a href="#demo" onClick="simulate( 1, 6, 2, 900, '1/6' );" >throw two dice 900 times</a> |
+      <a href="#demo" onClick="simulate( 1, 6, 10, 900, '1/6' );" >throw
+      ten dice 900 times</a>
+    </p>
+    <p>The same applies to throwing coins. When you drop a handfull of coins on the floor,
+       it is extremely rare that all of them end up facing the same way. Again, it may
+       happen sometimes, but the usual result is that there are about as many heads as there
+       are tails. Let us agree that heads=0, tails=1 and try a few simulations:
+    <p><a href="#demo" onClick="simulate( 0, 1, 1, 500, '1/2' );" >throw one coin 500 times</a> |
+      <a href="#demo" onClick="simulate( 0, 1, 3, 500, '1/6' );" >throw three coins 500 times</a> |
+      <a href="#demo" onClick="simulate( 0, 1, 43, 2000, '1/6' );" >throw a handful (43) coins 2000 times</a> |
+      <a href="#demo" onClick="simulate( 0, 1, 6, 10000, '1/6' );" >throw
+      six coins 10000 times</a>
+
+    <h2>The bell curve</h2>
+
+    <p>Small variations from the average are of course more common than large ones.
+       Thus, as you probably noticed if you tried the simulations above, the probabilities
+       of different sums follow roughly the normal distribution or "Gauss bell curve"
+       whose center is halfway between the smalles and largest possible sums.
+       This halfway is called the <i>expected value</i>.
+    <p>Expected value (i.e. center of normal distribution) is halfway between the minimum
+       and maximum values only if all the cases are equally likely; such as in throwing dice
+       and coins (where the probablities of all the cases are 1/6 and 1/2, respectively).
+       For example, when throwing a dart on a dart board, it is easier
+       to get one of the low scores than the bull's eye. Note, however, that even when
+       all cases are not equally likely, extreme sums are still less common than
+       the ones near middle. The <b>sum of several</b> throws therefore still
+       approximately follows the normal distribution, only this time the center (expected
+       value) is closer to the low end than the high end:
+    <p><a href="#demo" onClick="simulate( 1, 10, 1, 3000, 'pi*(11-x)^2 - pi*(11-x-1)^2' );" >Throw
+      one dart 3000 times</a> |
+      <a href="#demo" onClick="simulate( 1, 10, 3, 3000, 'pi*(11-x)^2 - pi*(11-x-1)^2' );" >Throw 3 darts 3000 times</a> |
+      <a href="#demo" onClick="simulate( 1, 10, 20, 500, 'pi*(11-x)^2 - pi*(11-x-1)^2' );" >Throw
+      20 darts 500 times</a>
+    <p>So, it doesn't matter if the distribution is symmetric or biased; sum of several events
+      still follow the normal distribution - and only the middle
+      (expected value) and "steepness" (variance) vary.</p>
+
+    <h2>Arbitrary distributions</h2>
+    <p>
+      In fact, when you sum many enough events, the <strong>probability function
+      doesn't matter at all</strong> as long as the amount of different sums is finite
+      and you don't get the one and same number all the time.
+      Examples:
+    <p>Sine wave distribution is far from symmetric:<br>
+      <a href="#demo" onClick="simulate( 1, 100, 1, 10000, 'sin(x/10)+1' );" >One
+      sine wave 10000 times</a> |
+      <a href="#demo" onClick="simulate( 1, 100, 2, 10000, 'sin(x/10)+1' );" >Two
+      sine waves 10000 times</a> |
+      <a href="#demo" onClick="simulate( 1, 100, 5, 10000, 'sin(x/10)+1' );" >Five
+      sine waves 10000 times</a>
+    <p>The tangent distribution is not particularily symmetric either, and is, in fact even discrete, "spiky":<br>
+      <a href="#demo" onClick="simulate( 1, 100, 1, 10000, 'tan(x*2)' );" >One
+      tangent 10000 times</a> |
+      <a href="#demo" onClick="simulate( 1, 100, 3, 10000, 'tan(x*2)' );" >Three
+      tangents 10000 times</a> |
+      <a href="#demo" onClick="simulate( 1, 100, 12, 10000, 'tan(x*2)' );" >Twelve
+      tangents 10000 times</a>
+    <p>...and as a final touch:<br>
+      <a href="#demo" onClick="simulate( 1, 20, 1, 30000, 'rnd(1)' );" ><i>completely
+      random</i> distribution</a> |
+      <a href="#demo" onClick="simulate( 1, 20, 5, 30000, 'rnd(1)' );" >sum of five
+      <i>completely random</i> distributions 30000 times</a>
+
+    <p>Because most naturally occuring measurable phenomena (such as the height of humans) are depended on more than one condition (in the human height case: nutrition, several genes, environment, personal history, ...), this all leads to an extremely important fact: <em><b>almost all measurable &quot;random&quot; variables in real world follow some kind of normal distribution</b></em>.</p>
+
+    <p>The formal representation of the central limit theorem looks like this:
+    <p><img src="formula.gif" width="224" height="74" border="1" alt="equation of central limit theorem">,<br>
+      when X<font size="1">1</font>, X<font size="1">2</font>,... are independent
+      observations<br> of random variable X, to which applies:<br>
+      <br>
+      <img src="limits.gif" width="129" height="47" border="1" alt="conditions of the central limit theorem"><br>
+      <br>
+    <hr/>
+
+    <!-- Creative Commons Public Domain -->
+    <a href="https://creativecommons.org/licenses/publicdomain"><img alt="Public Domain Dedication" border="0"
+    src="https://creativecommons.org/images/public/norights.gif" align="right"></a>
+    This work is dedicated to the
+    <a href="https://creativecommons.org/licenses/publicdomain">Public Domain</a>.
+    <!-- /Creative Commons Public Domain -->
+    <!--
+    <rdf:RDF xmlns="http://web.resource.org/cc/"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <Work rdf:about="http://iki.fi/elonen/code/centrallimit/index.en.html">
+       <dc:title>Central Limit Theorem Explained</dc:title>
+       <dc:date>2001-12-1</dc:date>
+       <dc:description>A friendly explanation of the central limit theorem of probability mathematics and an interactive demonstration.</dc:description>
+       <dc:creator><Agent>
+          <dc:title>Jarno Elonen</dc:title>
+       </Agent></dc:creator>
+       <dc:rights><Agent>
+          <dc:title>Jarno Elonen</dc:title>
+       </Agent></dc:rights>
+       <dc:type rdf:resource="http://purl.org/dc/dcmitype/Text" />
+       <dc:identifier>URN:NBN:fi-fe20031150</dc:identifier>
+    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+    </Work>
+    <License rdf:about="http://web.resource.org/cc/PublicDomain">
+       <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+       <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+       <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+    </License>
+    </rdf:RDF>
+    -->
+
+    <p>Demo is open source and written in Rust + Wasm + Javascript, see <a href="https://github.com/elonen/central-limit-demo">Github repository</a>.</p>
+
+  </body>
+</html>
