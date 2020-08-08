@@ -14,6 +14,12 @@
     <meta name="DC.Creator" content="Jarno Elonen <elonen@iki.fi>">
     <meta name="DC.Language" scheme="ISO639-1" content="fi">
     <meta name="DC.Date" scheme="ISO8601" content="2001-12-01">
+
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    <style>
+      body { margin:0 auto;  width:70em; }
+      article { width: 40em; }
+    </style>
   </head>
 
   <body>
@@ -28,9 +34,9 @@
       var button_handler = function() { alert("Visualization module not loaded yet. Try again in a second."); };
 
       function simulate( min_val, max_val, n_sums, repeats, func_str ) {
-        document.getElementById("simu_sum_of").value = n_sums; 
-        document.getElementById("simu_func").value = func_str; 
-        document.getElementById("simu_min").value = min_val; 
+        document.getElementById("simu_sum_of").value = n_sums;
+        document.getElementById("simu_func").value = func_str;
+        document.getElementById("simu_min").value = min_val;
         document.getElementById("simu_max").value = max_val;
         document.getElementById("simu_repeat_times").value = repeats;
         button_handler();
@@ -50,10 +56,10 @@
       });
     </script>
 
-    <div style="width: 320px; float: right; background: #EEE; padding: 1em; margin: 1em;">
+    <div style="width: 25em; float: right; background: #EEE; padding: 1em; margin: 1em; position: sticky; top: 0">
       <canvas id="canvas" height="320" width="480" style="width: 100%; border: 1px solid black;"></canvas>
 
-      <table style="font-size: 80%">
+      <table style="font-size: 70%">
         <tr><td>Summaa </td><td><input id="simu_sum_of" type="number" min="1" max="1000" step="10" value="10"/> otantaa</td></tr>
         <tr><td>todennäköisyysfunktiosta </td><td><input id="simu_func"  value="x"/>, </td></tr>
         <tr><td>missä x min = </td><td><input id="simu_min" type="number" min="-9999" max="9999" step="1" value="0"/></td></tr>
@@ -62,134 +68,149 @@
       </table>
 
       <button onclick="button_handler()">Simulate</button>
-
     </div>
 
     <!-- end app -->
 
-<h2>Nopat ja kolikot</h2>
+    <article>
 
-<p>Jos heittää noppaa kymmenen kertaa, on hyvin harvinaista saada pelkkiä ykkösiä.
-  Yleensä tuloksena on suunnilleen kaikkia numeroita ykkösen ja kuutosen väliltä. 
-  Joskus toki voi saada vaikka viisi kuutostakin, mutta ei kovin usein.
-<p>Jos näiden kymmenen heiton tulokset laskee yhteen, on summa luultavasti lähempänä
-  kolmea- neljääkymmentä kuin suurinta mahdollista, kuuttakymment&auml; eli kymmentä 
-  peräkkäistä kuutosta tai toisaalta pienint&auml; mahdollista tulosta, kymmentä,
-  joka tarkoittaisi pelkkiä ykkösiä.
-<p>T&auml;m&auml; johtuu siit&auml;, ett&auml; keskimm&auml;isten summia voi saada 
-  huomattavasti useammalla tavalla kuin &auml;&auml;rimm&auml;isi&auml;. Esim.
-  kahta noppaa heitett&auml;ess&auml;: 1+6 = 2+5 = 3+4 = 7, mutta vain 1+1 = 2 
-  ja vain 6+6 = 12.
-<p>Vaikka <b>yhden</b> nopan heitto siis tuottaa yhtä todennäköisesti minkä tahansa silmäluvun,
-  <b>monen nopan summassa</b> pienimmät ja suurimmat tulokset ovat harvinaisempia kuin
-  keskimmäiset. Kokeile itse:
-<p><a href="#demo" onClick="simulate( 1, 6, 1, 900, '1/6' );" >heitä
-  yhtä noppaa 900 kertaa</a> | <a href="#demo" onClick="simulate( 1, 6, 2, 900, '1/6' );" >heitä 
-  kahta noppaa 900 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 6, 10, 900, '1/6' );" >heitä 
-  kymmentä noppaa 900 kertaa</a> 
-<p>Samalla tavalla käy lanttin heitossakin. Jos heitetään lattialle kourallinen 
-  kolikoita, on hyvin harvinaista, että kaikki jä&auml;v&auml;t esim. kruunapuoli 
-  ylöspäin. Joskus niin voi käydä, mutta yleensä molempia maita on suunnilleen 
-  sama määrä. Jos sovitaan, että kruuna=0 ja klaava=1, voidaan koetta simuloida 
-  koneella: 
-<p><a href="#demo" onClick="simulate( 0, 1, 1, 500, '1/2' );" >heitä 
-  yhtä kolikkoa 500 kertaa</a> |
-  <a href="#demo" onClick="simulate( 0, 1, 3, 500, '1/6' );" >heitä
-  kolmea kolikkoa 500 kertaa</a> |
-  <a href="#demo" onClick="simulate( 0, 1, 43, 2000, '1/6' );" >heitä 
-  kourallista (43) kolikoita 2000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 0, 1, 6, 10000, '1/6' );" >heitä 
-  kuutta kolikkoa 10000 kertaa</a> 
+      <h3>Nopat ja kolikot</h3>
 
-<h2>Kellokäyrä</h2>
+      <p>Jos heittää noppaa kymmenen kertaa, on hyvin harvinaista saada pelkkiä ykkösiä.
+        Yleensä tuloksena on suunnilleen kaikkia numeroita ykkösen ja kuutosen väliltä.
+        Joskus toki voi saada vaikka viisi kuutostakin, mutta ei kovin usein.</p>
 
-<p>Pienet erot keskiarvosta suuntaan tai toiseen ovat tietysti yleisempiä kuin 
-  suuret. Niinpä, kuten varmaan huomasit jos kokeilit ylempänä olevia simulaatioita, 
-  eri summien todennäköisyydet noudattelevat suunnilleen gaussin käyrää eli normaalijakaumaa, 
-  jonka keskipiste on pienimmän ja suurimman mahdollisen summan puolivälissä. 
-  Tätä puoliväliä sanotaan odotusarvoksi. 
-<p>Odotusarvo (eli normaalijakauman keskipiste) on minimi- ja maksimiarvon keskellä 
-  vain jos kaikki alkeistapaukset ovat yhtä todennäköisiä, kuten nopan ja lantin 
-  heitossa (joissa kaikkien tapausten todenn&auml;k&ouml;isyys on 1/6 tai 1/2). 
-  Esim. tikan heitossa suomalaiselle tikkataululle on helpompi saada ykkönen kuin 
-  napakymppi. Vaikka kaikki tapaukset eivät olisikaan yhtä todennäköisiä, ovat 
-  äärimmäiset summat silti keskimääräisiä harvinaisempia. Monen heiton tulosten 
-  summa tuottaa siksi edelleen normaalijakauman:
-<p><a href="#demo" onClick="simulate( 1, 10, 1, 3000, '3.141*(11-x)^2 - 3.141*(11-x-1)^2' );" >Heitä 
-  yhtä tikkaa 3000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 10, 3, 3000, '3.141*(11-x)^2 - 3.141*(11-x-1)^2' );" >Heitä 
-  kolmea tikkaa 3000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 10, 20, 500, '3.141*(11-x)^2 - 3.141*(11-x-1)^2' );" >Heitä 
-  20 tikkaa 500 kertaa</a> 
-<p>Alkeistapausten todennäköisyysjakauma voi siis aivan yhtä hyvin olla symmetrinen 
-  tai painottunut; monen summan tulos muistuttaa joka tapauksessa normaalijakaumaa, 
-  ainoastaan sen keskipiste (odotusarvo) ja "jyrkkyys" (varianssi) vaihtelevat.</p>
+      <p>Jos näiden kymmenen heiton tulokset laskee yhteen, on summa luultavasti lähempänä
+        kolmea- neljääkymmentä kuin suurinta mahdollista, kuuttakymmentä eli kymmentä
+        peräkkäistä kuutosta tai toisaalta pienintä mahdollista tulosta, kymmentä,
+        joka tarkoittaisi pelkkiä ykkösiä.</p>
 
-<h2>Mielivaltaiset jakaumat</h2>
+      <p>Tämä johtuu siitä, että keskimmäisten summia voi saada
+        huomattavasti useammalla tavalla kuin äärimmäisiä. Esim.
+        kahta noppaa heitettäessä: 1+6 = 2+5 = 3+4 = 7, mutta vain 1+1 = 2
+        ja vain 6+6 = 12.</p>
 
-<p>Itse asiassa, jos tuloksia lasketaan yhteen tarpeeksi monta, <b>todennäköisyysjakaumalla 
-  ei ole mitään väliä</b> kunhan eri tuloksien määrä on rajallinen
-  ja edes joskus tulee muitakin kuin yhtä ja sama lukua. Esimerkkejä:
-<p>Sinikäyräjakauma on kaukana symmetrisestä:<br>
-  <a href="#demo" onClick="simulate( 1, 100, 1, 10000, 'sin(x/10)+1' );" >Yksi 
-  sinikäyrä 10000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 100, 2, 10000, 'sin(x/10)+1' );" >Kaksi 
-  sinikäyrää 10000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 100, 5, 10000, 'sin(x/10)+1' );" >Viisi 
-  sinikäyrää 10000 kertaa</a> 
-<p>Tangenttijakauma ei myöskään ole erityisen symmetrinen ja lisäksi se on diskreetti, 
-  "piikikäs":<br>
-  <a href="#demo" onClick="simulate( 1, 100, 1, 10000, 'tan(x*2)' );" >Yksi 
-  tangentti 10000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 100, 3, 10000, 'tan(x*2)' );" >Kolme 
-  tangenttia 10000 kertaa</a> |
-  <a href="#demo" onClick="simulate( 1, 100, 12, 10000, 'tan(x*2)' );" >12 
-  tangenttia 10000 kertaa</a> 
-<p>Pisteenä i:n päällä:<br>
-  <a href="#demo" onClick="simulate( 1, 20, 1, 30000, 'rnd(1)' );" ><i>täysin 
-  satunnainen</i> jakauma</a> |
-  <a href="#demo" onClick="simulate( 1, 20, 5, 30000, 'rnd(1)' );" >viiden 
-  <i>täysin satunnaisen</i> jakauman summa 30000 kertaa</a>
+      <p>Vaikka <b>yhden</b> nopan heitto siis tuottaa yhtä todennäköisesti minkä tahansa silmäluvun,
+        <b>monen nopan summassa</b> pienimmät ja suurimmat tulokset ovat harvinaisempia kuin
+        keskimmäiset. Kokeile itse:</p>
 
-<p>Koska useimmat luonnolliset ilmiöt (kuten esim. ihmisen pituus) riippuvat useammasta kuin yhdestä tekijästä (ihmisen pituuden tapauksessa: ravinto, useampi geeni, ympäristötekijät, henkilöhistoria, ...), edellä käsitellyistä seuraa erittäin tärkeä johtopäätös: <em><b>lähes kaikki reaalimaailman &quot;satunnais&quot;-muuttujat noudattavat jonkinlaista normaalijakaumaa</b></em>.</p>
+      <p><a href="#demo" onClick="simulate( 1, 6, 1, 900, '1/6' );" >heitä
+        yhtä noppaa 900 kertaa</a> | <a href="#demo" onClick="simulate( 1, 6, 2, 900, '1/6' );" >heitä
+        kahta noppaa 900 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 6, 10, 900, '1/6' );" >heitä
+        kymmentä noppaa 900 kertaa</a></p>
 
-<p>Formaalisti esitettynä keskeinen raja-arvolause näyttää tältä:
-<p><img src="formula.gif" width="224" height="74" border="1" alt="keskeisen raja-arvolauseen yhtälö">,<br>
-  kun X<font size="1">1</font>, X<font size="1">2</font>,... ovat riippumattomia
-  havaintoja<br>
-  satunnaismuuttujasta X, jolle p&auml;tee:<br>
-  <br>
-  <img src="limits.gif" width="129" height="47" border="1" alt="keskeisen raja-arvolauseen reunaehdot"><br>
-</p>
+      <p>Samalla tavalla käy lanttin heitossakin. Jos heitetään lattialle kourallinen
+        kolikoita, on hyvin harvinaista, että kaikki jäävät esim. kruunapuoli
+        ylöspäin. Joskus niin voi käydä, mutta yleensä molempia maita on suunnilleen
+        sama määrä. Jos sovitaan, että kruuna=0 ja klaava=1, voidaan koetta simuloida
+        koneella:</p>
 
-<hr/>
+      <p><a href="#demo" onClick="simulate( 0, 1, 1, 500, '1/2' );" >heitä
+        yhtä kolikkoa 500 kertaa</a> |
+        <a href="#demo" onClick="simulate( 0, 1, 3, 500, '1/6' );" >heitä
+        kolmea kolikkoa 500 kertaa</a> |
+        <a href="#demo" onClick="simulate( 0, 1, 43, 2000, '1/6' );" >heitä
+        kourallista (43) kolikoita 2000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 0, 1, 6, 10000, '1/6' );" >heitä
+        kuutta kolikkoa 10000 kertaa</a></p>
 
-<div>
-    <!-- Creative Commons Public Domain -->
-    <a href="https://creativecommons.org/licenses/publicdomain"><img alt="Public Domain Dedication" border="0"
-    src="https://creativecommons.org/images/public/norights.gif" align="right"></a>
-    Teksti on <a href="https://creativecommons.org/licenses/publicdomain">Public Domain</a>.
-    <!-- /Creative Commons Public Domain -->
-    <!--
-    <rdf:RDF xmlns="http://web.resource.org/cc/"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <Work rdf:about="">
-    <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
-    </Work>
+      <h2>Kellokäyrä</h2>
 
-    <License rdf:about="http://web.resource.org/cc/PublicDomain">
-       <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
-       <permits rdf:resource="http://web.resource.org/cc/Distribution" />
-       <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
-    </License>
+      <p>Pienet erot keskiarvosta suuntaan tai toiseen ovat tietysti yleisempiä kuin
+        suuret. Niinpä, kuten varmaan huomasit jos kokeilit ylempänä olevia simulaatioita,
+        eri summien todennäköisyydet noudattelevat suunnilleen gaussin käyrää eli normaalijakaumaa,
+        jonka keskipiste on pienimmän ja suurimman mahdollisen summan puolivälissä.
+        Tätä puoliväliä sanotaan odotusarvoksi.</p>
 
-    </rdf:RDF>
-    -->
+      <p>Odotusarvo (eli normaalijakauman keskipiste) on minimi- ja maksimiarvon keskellä
+        vain jos kaikki alkeistapaukset ovat yhtä todennäköisiä, kuten nopan ja lantin
+        heitossa (joissa kaikkien tapausten todennäk&ouml;isyys on 1/6 tai 1/2).
+        Esim. tikan heitossa suomalaiselle tikkataululle on helpompi saada ykkönen kuin
+        napakymppi. Vaikka kaikki tapaukset eivät olisikaan yhtä todennäköisiä, ovat
+        äärimmäiset summat silti keskimääräisiä harvinaisempia. Monen heiton tulosten
+        summa tuottaa siksi edelleen normaalijakauman:</p>
 
-    Demon lähdekoodi (Rust + Wasm + Javascript): <a href="https://github.com/elonen/central-limit-demo">Github</a>.
-</div>
+      <p><a href="#demo" onClick="simulate( 1, 10, 1, 3000, '3.141*(11-x)^2 - 3.141*(11-x-1)^2' );" >Heitä
+        yhtä tikkaa 3000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 10, 3, 3000, '3.141*(11-x)^2 - 3.141*(11-x-1)^2' );" >Heitä
+        kolmea tikkaa 3000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 10, 20, 500, '3.141*(11-x)^2 - 3.141*(11-x-1)^2' );" >Heitä
+        20 tikkaa 500 kertaa</a></p>
+
+      <p>Alkeistapausten todennäköisyysjakauma voi siis aivan yhtä hyvin olla symmetrinen
+        tai painottunut; monen summan tulos muistuttaa joka tapauksessa normaalijakaumaa,
+        ainoastaan sen keskipiste (odotusarvo) ja "jyrkkyys" (varianssi) vaihtelevat.</p>
+
+      <h2>Mielivaltaiset jakaumat</h2>
+
+      <p>Itse asiassa, jos tuloksia lasketaan yhteen tarpeeksi monta, <b>todennäköisyysjakaumalla
+        ei ole mitään väliä</b> kunhan eri tuloksien määrä on rajallinen
+        ja edes joskus tulee muitakin kuin yhtä ja sama lukua. Esimerkkejä:</p>
+
+      <p>Sinikäyräjakauma on kaukana symmetrisestä:<br>
+        <a href="#demo" onClick="simulate( 1, 100, 1, 10000, 'sin(x/10)+1' );" >Yksi
+        sinikäyrä 10000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 100, 2, 10000, 'sin(x/10)+1' );" >Kaksi
+        sinikäyrää 10000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 100, 5, 10000, 'sin(x/10)+1' );" >Viisi
+        sinikäyrää 10000 kertaa</a></p>
+
+      <p>Tangenttijakauma ei myöskään ole erityisen symmetrinen ja lisäksi se on epäjatkuva:<br>
+        <a href="#demo" onClick="simulate( 1, 100, 1, 10000, 'tan(x*2)' );" >Yksi
+        tangentti 10000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 100, 3, 10000, 'tan(x*2)' );" >Kolme
+        tangenttia 10000 kertaa</a> |
+        <a href="#demo" onClick="simulate( 1, 100, 12, 10000, 'tan(x*2)' );" >12
+        tangenttia 10000 kertaa</a></p>
+
+      <p>Pisteenä i:n päällä:<br>
+        <a href="#demo" onClick="simulate( 1, 20, 1, 30000, 'rnd(1)' );" ><i>täysin
+        satunnainen</i> jakauma</a> |
+        <a href="#demo" onClick="simulate( 1, 20, 5, 30000, 'rnd(1)' );" >viiden
+        <i>täysin satunnaisen</i> jakauman summa 30000 kertaa</a></p>
+
+      <p>Koska useimmat luonnolliset ilmiöt (kuten esim. ihmisen pituus) riippuvat useammasta kuin yhdestä tekijästä (ihmisen pituuden tapauksessa: ravinto, useampi geeni, ympäristötekijät, henkilöhistoria, ...), edellä käsitellyistä seuraa erittäin tärkeä johtopäätös: <em><b>lähes kaikki reaalimaailman &quot;satunnais&quot;-muuttujat noudattavat jonkinlaista normaalijakaumaa</b></em>.
+      </p>
+
+      <p>Formaalisti esitettynä keskeinen raja-arvolause näyttää tältä:
+      <p><img src="formula.gif" width="224" height="74" border="1" alt="keskeisen raja-arvolauseen yhtälö">,<br>
+        kun X<font size="1">1</font>, X<font size="1">2</font>,... ovat riippumattomia
+        havaintoja<br>
+        satunnaismuuttujasta X, jolle pätee:<br>
+        <br>
+        <img src="limits.gif" width="129" height="47" border="1" alt="keskeisen raja-arvolauseen reunaehdot"><br>
+      </p>
+
+      <hr/>
+
+      <p>
+          <!-- Creative Commons Public Domain -->
+          <a href="https://creativecommons.org/licenses/publicdomain"><img alt="Public Domain Dedication" border="0"
+          src="https://creativecommons.org/images/public/norights.gif" align="right"></a>
+          Teksti on <a href="https://creativecommons.org/licenses/publicdomain">Public Domain</a>.
+          <!-- /Creative Commons Public Domain -->
+          <!--
+          <rdf:RDF xmlns="http://web.resource.org/cc/"
+              xmlns:dc="http://purl.org/dc/elements/1.1/"
+              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+          <Work rdf:about="">
+          <license rdf:resource="http://web.resource.org/cc/PublicDomain" />
+          </Work>
+
+          <License rdf:about="http://web.resource.org/cc/PublicDomain">
+             <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
+             <permits rdf:resource="http://web.resource.org/cc/Distribution" />
+             <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+          </License>
+
+          </rdf:RDF>
+          -->
+
+          Demon lähdekoodi (Rust + Wasm + Javascript): <a href="https://github.com/elonen/central-limit-demo">Github</a>.
+      </p>
+
+  </article>
 
   </body>
 </html>
