@@ -27,7 +27,7 @@
   <body>
 
     <h1>Central Limit Theorem Explained</h1>
-    <small>Jarno Elonen &lt;<a href="mailto:elonen@iki.fi">elonen@iki.fi</a>&gt;, 2002-12-01 - 2020-08-08 | URN:NBN:fi-fe20031150</small>
+    <small>Jarno Elonen &lt;<a href="mailto:elonen@iki.fi">elonen@iki.fi</a>&gt;, 2002-12-01, 2020-08-08 | URN:NBN:fi-fe20031150</small>
 
 
     <!-- start app -->
@@ -70,8 +70,6 @@
       </table>
 
       <button onclick="button_handler()">Simulate</button>
-
-      <p><small><em>(Demo app requires Wasm and Javascript in browser.)</em></small></p>
     </div>
 
     <!-- end app -->
@@ -119,8 +117,7 @@
        to get one of the low scores than the bull's eye. Note, however, that even when
        all cases are not equally likely, extreme sums are still less common than
        the ones near middle. The <b>sum of several</b> throws therefore still
-       approximately follows the normal distribution, only this time the center (expected
-       value) is closer to the low end than the high end:
+       approximately follows the normal distribution:
     <p><a href="#demo" onClick="simulate( 1, 10, 1, 3000, 'pi*(11-x)^2 - pi*(11-x-1)^2' );" >Throw
       one dart 3000 times</a> |
       <a href="#demo" onClick="simulate( 1, 10, 3, 3000, 'pi*(11-x)^2 - pi*(11-x-1)^2' );" >Throw 3 darts 3000 times</a> |
