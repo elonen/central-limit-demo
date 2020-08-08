@@ -1,10 +1,14 @@
 ## Central Limit Theorem interactive demo
 
-This is source code for the interactive demonstration and explanation about _central limit theorem_, published at https://elonen.iki.fi/articles/centrallimit/index.en.html
+[![Build Status](https://travis-ci.com/elonen/central-limit-demo.svg?branch=master)](https://travis-ci.com/elonen/central-limit-demo)
 
-It's written in Rust / wasm-pack + Javascript.
+This is source code for the interactive web demonstration and explanation about _central limit theorem_, published at https://elonen.iki.fi/articles/centrallimit/index.en.html
 
-Why not JS only? Because this was my perfect excuse to learn *Rust* to *Wasm* workflow. For large repetitions, calculation can also actually get pretty heavy, so this is in fact a good fit for Rust.
+It's written in Rust (with wasm-pack). The actual code is [src/lib.rs](src/lib.rs).
+
+Why not Javascript? Because this was my perfect excuse to learn *Rust + Wasm* workflow. For large repetition values, calculation can also actually get pretty intense, so this is in fact a good fit for Rust.
+
+The original 2001 version was a Java applet, see `old__CentralLimitApplet.java`.
 
 ### 🛠️ Building
 
